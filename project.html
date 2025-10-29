@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+        }
+        .container{
+            background-color: aliceblue;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        table,tr,td{
+            border: 2px solid black;
+            width: 300px;
+            height: 10px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        .rps-container > button{
+               width: 100px;
+               height: 100px;
+               border-radius: 50%;
+               background-color: rgba(250, 235, 215, 0);
+        }
+        button:hover{
+            background-color: violet ;
+        }
+        
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+        <h1>Stone Paper Scissor</h1>
+    </div>
+    <div class="rps-container">
+        <button  onclick="game('Stone')"><img src="stone.jpg" style="width: 50%; height: 50%;border-radius: 50%;"></button>
+        <button  onclick="game('Paper')"><img src="paper.jpg "style= "width: 50%; height: 50%;border-radius: 50%"></button>
+        <button  onclick="game('Scissor')"><img src="scisscor.jpg"style= "width: 50%; height: 50%;border-radius: 50%"></button>
+    </div>
+    <p id="result">-</p>
+    <table>
+        <tr>
+            <td>You</td>
+            <td>Computer</td>
+        </tr>
+        <tr>
+            <td><p id="click-game">-</p></td>
+            <td><p id="comp-choice">-</p></td>
+        </tr>
+    </table>
+    <br>
+    <div class="results">
+    <table>
+        <tr>
+        <td class="result-data">Wins: 0</td>
+        <td class="result-data">Loss: 0</td>
+        <td class="result-data">Ties: 0</td>
+        </tr>
+</table>
+<br>
+</div>
+<button onclick="reset()">Reset</button>
+    </div>
+<script>
+    const click_game=document.getElementById('click-game')
+    const comp_game=document.getElementById('comp-choice')
+    const game_result=document.getElementById('result')
+    const result_data=document.getElementsByClassName('result-data')
+    let match=0,win=0,loss=0,tie=0
+    
+    function game(userchoice){
+        
+        let compchoice = getrandom()
+        comp_game.innerHTML=compchoice
+        click_game.innerHTML=userchoice 
+        match++
+
+        if( userchoice === 'Stone'){
+            if(compchoice === 'Scissor'){
+               game_result.innerHTML='Win'
+               win++
+            }
+            else if(compchoice === 'Paper'){
+               game_result.innerHTML='Loss'
+               loss++
+            }
+            else{
+               game_result.innerHTML='Tie'
+               tie++
+            }
+        }
+        else if( userchoice === 'Paper'){
+            if(compchoice === 'Stone'){
+               game_result.innerHTML='Win'
+               win++
+            }
+            else if(compchoice === 'Scissor'){
+               game_result.innerHTML='Loss'
+               loss++
+            }
+            else{
+               game_result.innerHTML='Tie'
+               tie++
+            }
+        }
+        
+        else{
+            if(compchoice === 'Paper'){
+               game_result.innerHTML='Win'
+               win++
+            }
+            else if(compchoice === 'Stone'){
+               game_result.innerHTML='Loss'
+               loss++
+            }
+            else{
+               game_result.innerHTML='Tie'
+               tie++
+            }
+          
+        }
+        result_data[0].innerHTML='Wins:${win}'
+        result_data[1].innerHTML='Loss:${loss}'
+        result_data[2].innerHTML='Ties:${tie}'
+
+
+       if(match === 5){
+         if(win > loss){
+            alert('YOU WIN')
+         }
+         else if(win < loss){
+            alert('YOU LOSS')
+         }
+         else{
+            alert('Game is TIE')
+         }
+         reset()
+       }
+    }
+    
+    function getrandom(){
+        let n= Math.round(Math.random()*2)
+        return (n===0) ? 'Stone' :( (n===1) ? 'Paper' : 'Scissor')
+    }
+    function reset(){
+        win=0
+        loss=0
+        tie=0
+        match=0
+
+        result_data[0].innerHTML = 'Wins:${win}'
+        result_data[1].innerHTML = 'Loss:${loss}'
+        result_data[2].innerHTML = 'Ties:${tie}'
+        
+        game_result.innerHTML='-'
+        comp_game.innerHTML='-'
+        click_game.innerHTML='-' 
+
+    }
+</script>
+
+</body>
+</html>
